@@ -1,36 +1,27 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import 'react-native-gesture-handler'
 import {NavigationContainer} from '@react-navigation/native'
+import './src/navigation/stackNavigator'
 
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import Stack from './src/navigation/stackNavigator';
+import { Provider } from 'react-redux'
+import { store } from './src/toolkitRedux/index'
+
+import LoginPage from './src/navigation/pages/LoginPage'
+import AccountPage from './src/navigation/pages/AccountPage'
 
 const App = () => {
   return (
-  <NavigationContainer>{}</NavigationContainer>
+    <Provider store = {store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName = 'AccountPage'>
+          <Stack.Screen name='Login page' component = {LoginPage} />
+          <Stack.Screen name='Account page' component = {AccountPage} /> 
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 
-const styles = StyleSheet.create({
-  mainView : {
-    backgroundColor : '#78F'
-  },
-  text:{
-    fontSize : 132
-  },
-});
-
 export default App;
+

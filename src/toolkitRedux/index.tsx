@@ -1,11 +1,41 @@
-import { configureStore, createAction, createReducer } from "@reduxjs/toolkit";
+import { configureStore, createAction, createReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const testAction = createAction('TEST')
+//export const changeName = createAction('changeName')
+//export const changePassword = createAction('changePassword')
 
-export const mainReducer = createReducer({}, {
-    [testAction.type] : state => state
+
+interface IAccountInfo {
+    name : string,
+    password : string,
+    email : string
+}
+
+const initialState : IAccountInfo = {
+    name : '',
+    password : '',
+    email : ''
+}
+
+const accountSlice = createSlice({
+    name: 'accountInfo',
+    initialState,
+    reducers : {
+        changeName(state, action: PayloadAction<string>) { state.name = action.payload },
+        changePassword(state, action) { state.password = action.payload }
+    }
 })
 
-const store = configureStore({
-    reducer : mainReducer
+// const mainReducer = createReducer(initialState, {
+//     [changeName.type] : state => {
+//         state.name = 'Name Changed'
+//     },
+//     [changePassword.type] : state => {
+//         state.password = 'Password Changed'
+//     }
+// })
+
+export const {changeName, changePassword} = accountSlice.actions
+
+export const store = configureStore({
+    reducer : accountSlice.reducer
 })
