@@ -12,7 +12,7 @@ import {changeName, changePassword} from '../../toolkitRedux/index'
 import INavPageProps from './index'
 
 
-const LoginPage = ({route, navigation} : INavPageProps) => {
+const LoginScreen = ({route, navigation} : INavPageProps) => {
     const dispatch = useDispatch()
 
     return (
@@ -33,13 +33,13 @@ const LoginPage = ({route, navigation} : INavPageProps) => {
           />
         </View>
         <View>
-          <Button
+          {/* {<Button
             title = 'Go to Account'
             onPress = {() => {
               console.log(typeof route, typeof navigation )
               navigation.navigate('Account page')
             }}
-          />
+          />} */}
         </View>
       </View>
     )
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
       flex : 1,
       justifyContent : 'center',
       alignItems : 'center',
-      backgroundColor : '#112'
+      backgroundColor : '#C5EBF7'
     },
     textInputContainer : {
       alignItems : 'center',
@@ -70,11 +70,8 @@ const styles = StyleSheet.create({
 });  
 
 const mapStateToProps = (state : any, ownProps? : any) : any => {
-    console.log(state)
-    console.log('ge')
-    console.log(ownProps)
-
+    console.log('mstp')
     return {}
 }
 
-export default connect(mapStateToProps)(LoginPage)
+export default connect(mapStateToProps)(LoginScreen)

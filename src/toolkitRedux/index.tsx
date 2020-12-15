@@ -1,19 +1,20 @@
-import { configureStore, createAction, createReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-//export const changeName = createAction('changeName')
-//export const changePassword = createAction('changePassword')
-
+import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { State } from "react-native-gesture-handler";
 
 interface IAccountInfo {
+    isSignedIn: boolean,
     name : string,
     password : string,
     email : string
+    token: string,
 }
 
 const initialState : IAccountInfo = {
+    isSignedIn: false,
     name : '',
     password : '',
-    email : ''
+    email : '',
+    token : '1'
 }
 
 const accountSlice = createSlice({
@@ -21,20 +22,13 @@ const accountSlice = createSlice({
     initialState,
     reducers : {
         changeName(state, action: PayloadAction<string>) { state.name = action.payload },
-        changePassword(state, action) { state.password = action.payload }
+        changePassword(state, action) { state.password = action.payload },
+        signIn(state, action) {state.token = action.payload},
+        signOut(state) {state.token = ''}
     }
 })
 
-// const mainReducer = createReducer(initialState, {
-//     [changeName.type] : state => {
-//         state.name = 'Name Changed'
-//     },
-//     [changePassword.type] : state => {
-//         state.password = 'Password Changed'
-//     }
-// })
-
-export const {changeName, changePassword} = accountSlice.actions
+export const {changeName, changePassword, signIn, signOut} = accountSlice.actions
 
 export const store = configureStore({
     reducer : accountSlice.reducer
