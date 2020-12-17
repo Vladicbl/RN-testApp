@@ -1,5 +1,4 @@
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { State } from "react-native-gesture-handler";
 
 interface IAccountInfo {
     isSignedIn: boolean,
@@ -14,7 +13,7 @@ const initialState : IAccountInfo = {
     name : '',
     password : '',
     email : '',
-    token : '1'
+    token : ''
 }
 
 const accountSlice = createSlice({

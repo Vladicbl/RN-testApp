@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import { store } from './src/toolkitRedux/index'
 
 import LoginScreen from './src/navigation/screens/LoginScreen'
+import SignUpScreen from './src/navigation/screens/SignUpScreen'
 import AccountScreen from './src/navigation/screens/AccountScreen'
 import MainScreen from './src/navigation/screens/MainScreen'
 
@@ -59,6 +60,10 @@ const LoginScreenStack = () => (
       name='Login Screen' 
       component = {LoginScreen} 
     />
+    <StackNavigator.Screen 
+      name='SignUp Screen' 
+      component = {SignUpScreen} 
+    />
   </StackNavigator.Navigator>
 )
 
@@ -74,9 +79,7 @@ const App = () => {
     <Provider store = {store}>
     <NavigationContainer>
       { store.getState().token == '' ? (
-        <StackNavigator.Navigator>
-          <StackNavigator.Screen name = 'Login Screen' component = {LoginScreenStack}/>
-        </StackNavigator.Navigator>
+          <LoginScreenStack/>
       ) : (
         <DrawerNavigator.Navigator initialRouteName="Main Screen">
           <DrawerNavigator.Screen name="Main Screen" component={MainScreenStack} />
