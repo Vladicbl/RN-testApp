@@ -8,6 +8,14 @@ interface IAccountInfo {
     token: string,
 }
 
+interface IUserInfo {
+    name : string
+}
+
+const userInitState: IUserInfo = {
+    name: ''
+}
+
 const initialState : IAccountInfo = {
     isSignedIn: false,
     name : '',
@@ -27,7 +35,16 @@ const accountSlice = createSlice({
     }
 })
 
+const userSlice = createSlice({
+    name: 'userInfo',
+    initialState : userInitState,
+    reducers : {
+        setUser(state, action) {state.name = action.payload}
+    }
+})
+
 export const {changeName, changePassword, signIn, signOut} = accountSlice.actions
+export const {setUser} = userSlice.actions
 
 export const store = configureStore({
     reducer : accountSlice.reducer

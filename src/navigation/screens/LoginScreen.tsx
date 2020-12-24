@@ -22,9 +22,6 @@ const LoginScreen = ({route, navigation} : INavPageProps) => {
 
     return (
       <View style = {styles.container}>
-        <View style = {styles.logoView}>
-          <Image source = {require('../../../resouces/logo.jpg')} style = {styles.logo}/>
-        </View>
         <View style = {styles.textInputContainer}>
           <TextInput 
             placeholder = 'Account Name'
@@ -66,7 +63,7 @@ const styles = StyleSheet.create({
       width : 250,
       marginBottom : 15,
       borderRadius : 50,
-      backgroundColor : '#1191AA'
+      backgroundColor : '#ADDCE3'
     },
     logoView : {
       paddingBottom : 100,
