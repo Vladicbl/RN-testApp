@@ -3,7 +3,6 @@ import {
     View,
     Text,
     StyleSheet,
-    Dimensions,
     Animated,
     Button,
     Alert,
@@ -13,8 +12,11 @@ import auth from '@react-native-firebase/auth';
 import { ScrollView, TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const WIDNOW_HEIGHT = Dimensions.get('window').height
-const WIDNOW_WIDTH = Dimensions.get('window').width
+
+import InputArea from '../../components/InputArea'
+import ButtonComp from '../../components/ButtonComp'
+
+import {SCREEN} from '../../constants'
 
 //import styled from 'styled-components/native'
 
@@ -82,12 +84,12 @@ const SignUpScreen = () => {
         value,
         {
           toValue: 1,
-          duration: 2000,
+          duration: 1200,
           useNativeDriver: false
         }
       )
     })
-    Animated.stagger(100, animations).start()
+    Animated.stagger(50, animations).start()
   }
 
   useEffect(() =>{
@@ -97,20 +99,19 @@ const SignUpScreen = () => {
   const content = animationsValues.map((value, index) => {
     return index != 3 ?
     (<Animated.View key = {index} 
-    style = {{ paddingHorizontal: 15, marginVertical: 10, borderRadius: 20, backgroundColor: '#ADDCE3', opacity :  value}}>
-      <TextInput
-          placeholder = {TextValues[index]}
-          onChangeText = {(value) =>{ index == 0 ? setEmail(value) : index == 1 ? setPassword(value) : setConfirmPassword(value)}}
-      />
+    style = {{opacity :  value}}>
+      <InputArea 
+        placeholder = {TextValues[index]} 
+        onChangeText = {(value: string) =>{ index == 0 ? setEmail(value) : index == 1 ? setPassword(value) : setConfirmPassword(value)}}/>
     </Animated.View>)
     :
-    (<Animated.View key = {index} style= {{backgroundColor: '#ADDCE3', borderRadius: 20, marginTop: 10,
-      height: WIDNOW_HEIGHT * .05, justifyContent: 'center', alignItems: 'center', marginHorizontal: .15 * WIDNOW_WIDTH, opacity :  value}}>
-      <TouchableHighlight onPress = {() => {
-        validateEmail(email) && password == confirmPassword ? signUp() : Alert.alert('Try again!','E-mail address doesn\'t allowed.\nOr password doesn\'t match confirm password.')
-        }}>
-              <Text>{TextValues[index]}</Text>
-      </TouchableHighlight>
+    (<Animated.View key = {index} style= {{ alignItems: 'center', opacity :  value}}>
+      <ButtonComp 
+        title = {TextValues[index]} onPress = {() => {
+        validateEmail(email) && password == confirmPassword 
+          ? signUp() 
+          : Alert.alert('Try again!','E-mail address doesn\'t allowed.\nOr password doesn\'t match confirm password.')}}
+      />
     </Animated.View>)
   })
 
@@ -124,8 +125,8 @@ const SignUpScreen = () => {
 const styles = StyleSheet.create({
   container: {
       flex: 1,
-      paddingHorizontal: .15 * WIDNOW_WIDTH,
-      paddingVertical: .20 * WIDNOW_HEIGHT,
+      paddingHorizontal: .15 * SCREEN.WIDNOW_WIDTH,
+      paddingVertical: .20 * SCREEN.WIDNOW_HEIGHT,
       backgroundColor: '#5FC0CE'
   },
 })

@@ -5,82 +5,63 @@ import {
   Image,
   StyleSheet,
   View,
-  Text
+  Text,
+  KeyboardAvoidingView,
+  Keyboard
 } from 'react-native';
 
 import { connect, useDispatch } from 'react-redux'
-import {changeName, changePassword} from '../../toolkitRedux/index'
+import {asynkThunk, changeName, changePassword, store} from '../../toolkitRedux/index'
 import INavPageProps from './index'
+
+import {SCREEN} from '../../constants'
+
+import InputArea from '../../components/InputArea'
+import ButtonComp from '../../components/ButtonComp'
 
 
 
 const LoginScreen = ({route, navigation} : INavPageProps) => {
     const dispatch = useDispatch()
-
     const [email, setEmail ] = useState<string>('')
     const [password, setPassword ] = useState<string>('')
 
     return (
+      <KeyboardAvoidingView style = {{ flex: 1, height: '100%' }}>
       <View style = {styles.container}>
-        <View style = {styles.textInputContainer}>
-          <TextInput 
-            placeholder = 'Account Name'
-            onChangeText = {(value) => {setEmail(value)}}
-            onSubmitEditing = {() => {dispatch(changeName(email))}}
-          />
-        </View>
-        <View style = {styles.textInputContainer}>
-          <TextInput 
-            placeholder = 'Password'
-            onSubmitEditing = {(value) => {dispatch(changePassword(value))}}
-          />
-        </View>
+        <InputArea placeholder = 'Account Name' onChangeText = {(value: string ) => {setEmail(value)}}/>
+        <InputArea placeholder = 'Password' onChangeText = {(value: string ) => {setPassword(value)}}/>
         <View style = {styles.touchablesContainer}>
-        <TouchableHighlight onPress = {() => {}}>
-            <View style={styles.touchableView}>
-              <Text>Sign In</Text>
-            </View>
-          </TouchableHighlight>
-          <TouchableHighlight onPress = {() => navigation.navigate('SignUp Screen')}>
-            <View style={styles.touchableView}>
-              <Text>Sign Up</Text>
-            </View>
-          </TouchableHighlight>
+          <ButtonComp title = 'Sign In' onPress= {() => { dispatch(asynkThunk()) }}/>
+          <ButtonComp title = 'Sign Up' onPress = {() => navigation.navigate('SignUp Screen')}/>
         </View>
+        {/* <View style={{alignItems: 'center'}}>
+          <Text style = {{color: '#4F6569'}}>Forgot password?</Text>
+        </View> */}
       </View>
+      </KeyboardAvoidingView>
     )
   }
 
 const styles = StyleSheet.create({
-    container : {
-      flex : 1,
-      justifyContent : 'center',
-      alignItems : 'center',
-      backgroundColor : '#C5EBF7'
-    },
-    textInputContainer : {
-      alignItems : 'center',
-      width : 250,
-      marginBottom : 15,
-      borderRadius : 50,
-      backgroundColor : '#ADDCE3'
-    },
-    logoView : {
-      paddingBottom : 100,
-    },
-    logo : {
-      width : 120,
-      height : 120,
-      borderRadius : 80
-    },
+  container: {
+    flex: 1,
+    paddingHorizontal: .15 * SCREEN.WIDNOW_WIDTH,
+    paddingVertical: .20 * SCREEN.WIDNOW_HEIGHT,
+    backgroundColor: '#5FC0CE'
+  },
+
+
+    // container : {
+    //   flex : 1,
+    //   justifyContent : 'center',
+    //   alignItems : 'center',
+    //   backgroundColor : '#5FC0CE'//'#C5EBF7'
+    // },
     touchablesContainer: {
       flex: 0.4,
       flexDirection: 'row',
-      alignSelf: 'stretch',
-      justifyContent : 'space-around',
-      alignItems: 'center',
-      marginHorizontal: 80,
-      backgroundColor: '#333'
+      justifyContent: 'space-around'
     },
     touchableView:{
       borderRadius: 30,
@@ -90,7 +71,6 @@ const styles = StyleSheet.create({
 });  
 
 const mapStateToProps = (state : any, ownProps? : any) : any => {
-    console.log('mstp')
     return {}
 }
 
