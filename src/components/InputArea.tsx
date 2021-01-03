@@ -1,7 +1,13 @@
 import React from 'react'
+import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native'
 import {View, TextInput, StyleSheet, Dimensions} from 'react-native'
 
 import {SCREEN} from '../constants'
+
+const handleFocus = (e : NativeSyntheticEvent<TextInputFocusEventData>) : void => {
+    console.log(e.currentTarget)
+}
+
 
 const InputArea = (props:any) => {
     return(
@@ -9,6 +15,7 @@ const InputArea = (props:any) => {
             <TextInput
                 placeholder = {props.placeholder}
                 onChangeText = {props.onChangeText}
+                onFocus= {handleFocus}
             />
         </View>
     )

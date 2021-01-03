@@ -78,7 +78,7 @@ const App = () => {
   return(
     <Provider store = {store}>
     <NavigationContainer>
-      { store.getState().token == '' ? (
+      { store.getState().token != '' ? (
           <LoginScreenStack/>
       ) : (
         <DrawerNavigator.Navigator initialRouteName="Main Screen">
