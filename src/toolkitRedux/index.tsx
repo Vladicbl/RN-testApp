@@ -1,4 +1,4 @@
-import { configureStore, createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { configureStore, createSlice, PayloadAction, createAsyncThunk, combineReducers } from "@reduxjs/toolkit";
 
 interface IAccountInfo {
     isSignedIn: boolean,
@@ -55,17 +55,31 @@ const accountSlice = createSlice({
     
 })
 
-// const userSlice = createSlice({
-//     name: 'userInfo',
-//     initialState : userInitState,
-//     reducers : {
-//         setUser(state, action) {state.name = action.payload}
-//     }
-// })
+interface ICards {
+    cards: any[]
+}
+
+const initialCards: ICards = {
+    cards: []
+}
+
+const cardsSlice = createSlice({
+    name: 'cardsSlice',
+    initialState : initialCards,
+    reducers : {
+        setCards(state, action) {state.cards = action.payload},
+        unshiftCard(state) {
+            state.cards.unshift(state.cards.pop())
+        }
+    }
+})
 
 export const {changeName, changePassword, signIn, signOut} = accountSlice.actions
-// export const {setUser} = userSlice.actions
+export const {setCards, unshiftCard} = cardsSlice.actions
 
 export const store = configureStore({
-    reducer : accountSlice.reducer,
+    reducer : combineReducers({
+        account: accountSlice.reducer,
+        cards: cardsSlice.reducer
+    }),
 })

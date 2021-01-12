@@ -21,10 +21,10 @@ import ButtonComp from '../../components/ButtonComp'
 
 
 
-const LoginScreen = ({route, navigation} : INavPageProps) => {
+const LoginScreen = (props : any, {route, navigation} : INavPageProps) => {
     const dispatch = useDispatch()
-    const [email, setEmail ] = useState<string>('')
-    const [password, setPassword ] = useState<string>('')
+    const [email, setEmail ] = useState('')
+    const [password, setPassword ] = useState('')
 
     return (
       <KeyboardAvoidingView style = {{ flex: 1, height: '100%' }}>

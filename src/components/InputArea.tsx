@@ -1,15 +1,21 @@
 import React from 'react'
 import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native'
-import {View, TextInput, StyleSheet, Dimensions} from 'react-native'
+import {View, TextInput, StyleSheet} from 'react-native'
 
 import {SCREEN} from '../constants'
 
-const handleFocus = (e : NativeSyntheticEvent<TextInputFocusEventData>) : void => {
+const handleFocus = (e : NativeSyntheticEvent<TextInputFocusEventData>) : void => { // delete this func. It's can't be in presentational component
     console.log(e.currentTarget)
 }
 
 
-const InputArea = (props:any) => {
+interface Props {
+    placeholder: string,
+    onChangeText: (value: string) => any,
+    style?: any
+}
+
+const InputArea = (props:Props) => {
     return(
         <View style = {[styles.container, props.style]}>
             <TextInput
